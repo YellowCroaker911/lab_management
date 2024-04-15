@@ -1,2 +1,2 @@
 ## 注意事项
-`com.backend.utils.config.SecurityConfig`类配置了`doiter`方法的拦截逻辑，业务上公共URL只有`/user/login`，即登录页面，登录后，注意传递JWT-token进行其他页面的访问，定义请求头字段`Authorization`，并以`Bearer `开头(注意空格)，再附上JWT-token码，以上事宜未尽，会出现403错误。
+`com.backend.utils.config.SecurityConfig`类配置了`doFiter`方法的拦截逻辑，业务上公共URL只有`/user/login`，即登录页面，登录后，注意传递JWT-token进行其他页面的访问，定义请求头字段`Authorization`，并以`Bearer `开头(注意空格)，再附上JWT-token码，以上事宜未尽，会出现403错误。

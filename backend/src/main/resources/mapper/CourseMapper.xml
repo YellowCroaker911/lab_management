@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.backend.service.mapper.CourseMapper">
+
+    <resultMap id="BaseResultMap" type="com.backend.model.entity.Course">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="teacherId" column="teacher_id" jdbcType="BIGINT"/>
+            <result property="labId" column="lab_id" jdbcType="BIGINT"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="semester" column="semester" jdbcType="VARCHAR"/>
+            <result property="startingWeek" column="starting_week" jdbcType="VARCHAR"/>
+            <result property="endingWeek" column="ending_week" jdbcType="VARCHAR"/>
+            <result property="session" column="session" jdbcType="VARCHAR"/>
+            <result property="studentNum" column="student_num" jdbcType="INTEGER"/>
+            <result property="major" column="major" jdbcType="VARCHAR"/>
+            <result property="clazz" column="clazz" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,teacher_id,lab_id,
+        type,semester,starting_week,
+        ending_week,session,student_num,
+        major,class,status,
+        create_time,update_time,is_delete
+    </sql>
+</mapper>

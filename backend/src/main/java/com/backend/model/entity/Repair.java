@@ -10,55 +10,43 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-// todo:给model的所有类的字段加注解
-
 /**
- * 用户
- * @TableName user
+ * 维修
+ * @TableName repair
  */
-@TableName(value ="user")
+@TableName(value ="repair")
 @Data
-public class User implements Serializable {
+public class Repair implements Serializable {
     /**
-     * 用户id
+     * 维修记录id
      */
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
-     * 账号，约定管理员以a开头，学生以s开头，教师以t开头，实验员以l开头
+     * 教师id
      */
-    private String username;
+    private Long teacherId;
 
     /**
-     * 密码
+     * 实验室id
      */
-    private String password;
+    private Long labId;
 
     /**
-     * 用户角色，0-管理员，1-学生，2-教师，3-实验员
+     * 故障描述
      */
-    private Integer role;
+    private String faultDescription;
 
     /**
-     * 姓名
+     * 维修说明
      */
-    private String name;
+    private String maintenanceDescription;
 
     /**
-     * 专业
+     * 维修状态，0-未维修，1-维修中，2-已维修
      */
-    private String major;
-
-    /**
-     * 班级
-     */
-    private String clazz;
-
-    /**
-     * 职称
-     */
-    private String title;
+    private Integer status;
 
     /**
      * 创建时间

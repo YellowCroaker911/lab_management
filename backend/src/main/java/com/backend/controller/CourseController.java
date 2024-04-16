@@ -71,22 +71,22 @@ public class CourseController {
     }
 
     // 根据教师id获取课程
-    @GetMapping("/getByTeacherId")
-    public ResponseData<Object> getByTeacherId(@RequestParam @NotNull(message = "教师id不能为空") Long teacherId){
+    @GetMapping("/getCoursesByTeacherId")
+    public ResponseData<Object> getCoursesByTeacherId(@RequestParam @NotNull(message = "教师id不能为空") Long teacherId){
         List<Course> courses = courseService.getByTeacherId(teacherId);
         return ResponseData.success(courses, null);
     }
 
     // 根据实验室id获取课程
-    @GetMapping("/getByLabId")
-    public ResponseData<Object> getByLabId(@RequestParam @NotNull(message = "实验室id不能为空") Long labId){
+    @GetMapping("/getCoursesByLabId")
+    public ResponseData<Object> getCoursesByLabId(@RequestParam @NotNull(message = "实验室id不能为空") Long labId){
         List<Course> courses = courseService.getByTeacherId(labId);
         return ResponseData.success(courses, null);
     }
 
     // 根据需求实验室类型获取课程
-    @GetMapping("/getByType")
-    public ResponseData<Object> getByType(@RequestParam @NotNull(message = "需求实验室类型不能为空")
+    @GetMapping("/getCoursesByType")
+    public ResponseData<Object> getCoursesByType(@RequestParam @NotNull(message = "需求实验室类型不能为空")
                                               @Min(value = 0, message = "实验室类型必须在{0,1,2}内")
                                               @Max(value = 2, message = "实验室类型必须在{0,1,2}内") Integer type){
         List<Course> courses = courseService.getByType(type);
@@ -94,23 +94,23 @@ public class CourseController {
     }
 
     // 根据名称前缀获取课程
-    @GetMapping("/getByNamePrefix")
-    public ResponseData<Object> getByNamePrefix(@RequestParam @NotBlank(message = "名称前缀不能为空") String namePrefix){
+    @GetMapping("/getCoursesByNamePrefix")
+    public ResponseData<Object> getCoursesByNamePrefix(@RequestParam @NotBlank(message = "名称前缀不能为空") String namePrefix){
         List<Course> courses = courseService.getByNamePrefix(namePrefix);
         return ResponseData.success(courses, null);
     }
 
     // 根据学期获取课程
-    @GetMapping("/getBySemester")
-    public ResponseData<Object> getBySemester(@RequestParam @NotBlank(message = "学期不能为空")
+    @GetMapping("/getCoursesBySemester")
+    public ResponseData<Object> getCoursesBySemester(@RequestParam @NotBlank(message = "学期不能为空")
                                                   @Pattern(regexp = "^\\d{4}-\\d{4}-(1|2)$",message = "学期格式错误") String semester){
         List<Course> courses = courseService.getBySemester(semester);
         return ResponseData.success(courses, null);
     }
 
     // 根据排课状态获取课程
-    @GetMapping("/getByStatus")
-    public ResponseData<Object> getByStatus(@RequestParam @NotNull(message = "排课状态不能为空")
+    @GetMapping("/getCoursesByStatus")
+    public ResponseData<Object> getCoursesByStatus(@RequestParam @NotNull(message = "排课状态不能为空")
                                                 @Min(value = 0, message = "排课状态必须在{0,1}内")
                                                 @Max(value = 1, message = "排课状态必须在{0,1}内")
                                                 Integer status){

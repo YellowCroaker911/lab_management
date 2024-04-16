@@ -10,8 +10,6 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-// todo:给model的所有类的字段加注解
-
 /**
  * 用户
  * @TableName user

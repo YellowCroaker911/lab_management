@@ -13,10 +13,11 @@ import java.util.List;
 public interface UserService extends IService<User> {
     void add(User user);
     void delete(Long id);
+    void update(User user);
     User get(Long id);
-    List<User> getAll(Integer role);
+    List<User> getAll();
+    List<User> getByRole(Integer role);
     List<User> getByNamePrefix(String namePrefix);
     User getLoginUser();
     String getJwtToken(String userName,String password);
-    void alter(User user);
 }

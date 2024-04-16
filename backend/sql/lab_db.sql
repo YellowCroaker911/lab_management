@@ -1,4 +1,4 @@
-drop table if exists repair;
+drop table if exists maintain;
 drop table if exists borrow;
 drop table if exists course;
 drop table if exists lab;
@@ -8,7 +8,7 @@ drop table if exists user;
 create table user
 (
     id           	bigint auto_increment comment '用户id' primary key,
-    username     	varchar(255) not null comment '账号，约定管理员以a开头，学生以s开头，教师以t开头，实验员以l开头',
+    username     	varchar(255) not null unique comment '账号，约定管理员以a开头，学生以s开头，教师以t开头，实验员以l开头',
     password     	varchar(255) not null comment '密码',
     role         	int not null comment '用户角色，0-管理员，1-学生，2-教师，3-实验员',
 	name         	varchar(255) comment '姓名',
@@ -27,7 +27,7 @@ create table lab
 	lab_admin_id	bigint not null comment '实验员id',
 	type 			int not null comment '实验室类别，0-软件，1-硬件，2-网络',
 	name 		    varchar(255) comment '实验室名称',
-	location		varchar(255) comment '实验室地点，约定用3位数字表示',
+	location		varchar(255) unique comment '实验室地点，约定用3位数字表示',
 	equipment_num	int default 0 not null comment '设备数量',
     create_time  	datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     update_time  	datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
@@ -77,7 +77,7 @@ create table borrow
 ) comment '借用';
 
 -- 维修表
-create table repair
+create table maintain
 (
     id           	bigint auto_increment comment '维修记录id' primary key,
 	teacher_id	 	bigint not null comment '教师id',

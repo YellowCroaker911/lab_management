@@ -3,7 +3,6 @@ package com.backend.service.impl;
 import com.backend.service.utils.UserDetailsImpl;
 import com.backend.utils.JwtUtil;
 import com.backend.utils.exception.BusinessException;
-import com.backend.utils.response.ReturnCodes;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.backend.model.entity.User;
@@ -15,7 +14,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -51,17 +49,29 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             if (user.getName() != null || user.getMajor() != null || user.getClazz() != null || user.getTitle() != null) {
                 throw new BusinessException("管理员角色错误字段赋值");
             }
+            if (user.getUsername().charAt(0) != 'r') {
+                throw new BusinessException("管理员角色账户名违反约定");
+            }
         } else if (user.getRole() == 1) {
             if (user.getTitle() != null) {
                 throw new BusinessException("学生角色错误字段赋值");
+            }
+            if (user.getUsername().charAt(0) != 's') {
+                throw new BusinessException("学生角色账户名违反约定");
             }
         } else if (user.getRole() == 2) {
             if (user.getName() != null || user.getMajor() != null || user.getClazz() != null) {
                 throw new BusinessException("教师角色错误字段赋值");
             }
+            if (user.getUsername().charAt(0) != 't') {
+                throw new BusinessException("教师角色账户名违反约定");
+            }
         } else if (user.getRole() == 3) {
             if (user.getName() != null || user.getMajor() != null || user.getClazz() != null) {
                 throw new BusinessException("实验员角色错误字段赋值");
+            }
+            if (user.getUsername().charAt(0) != 'l') {
+                throw new BusinessException("实验员角色账户名违反约定");
             }
         }
         User qUser = new User();
@@ -76,19 +86,33 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
 
     @Override
+    public void update(User user) {
+        User qUser = userMapper.selectById(user.getId());
+        if (qUser == null) {
+            throw new BusinessException("索引不存在");
+        }
+        BeanUtils.copyProperties(user, qUser);
+        if (user.getPassword() != null) {
+            qUser.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        userMapper.updateById(qUser);
+    }
+
+    @Override
     public User get(Long id) {
         return userMapper.selectById(id);
     }
 
     @Override
-    public List<User> getAll(Integer role) {
+    public List<User> getAll() {
+        return userMapper.selectList(null);
+    }
+
+    @Override
+    public List<User> getByRole(Integer role) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        if (role == null) {
-            return userMapper.selectList(null);
-        } else {
-            queryWrapper.eq("role", role);
-            return userMapper.selectList(queryWrapper);
-        }
+        queryWrapper.eq("role", role);
+        return userMapper.selectList(queryWrapper);
     }
 
     @Override
@@ -115,16 +139,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         UserDetailsImpl loginUser = (UserDetailsImpl) authenticate.getPrincipal();
         User user = loginUser.getUser();
         return JwtUtil.createJWT(user.getId().toString());
-    }
-
-    @Override
-    public void alter(User user) {
-        User qUser = userMapper.selectById(user.getId());
-        BeanUtils.copyProperties(user, qUser);
-        if (user.getPassword() != null) {
-            qUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        userMapper.updateById(qUser);
     }
 }
 

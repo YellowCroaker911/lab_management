@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
 import java.security.SignatureException;
 
 @Slf4j
@@ -41,6 +42,19 @@ public class GlobalExceptionHandler {
     public ResponseData<Object> argumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
         log.info("数据校验错误: " + e);
         return ResponseData.fail(ReturnCodes.DATA_VALIDATION_FAIL, "数据校验错误: " + e.getBindingResult().getFieldError().getDefaultMessage());
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseData<Object> constraintViolationExceptionHandler(ConstraintViolationException e) {
+        log.info("数据校验错误: " + e);
+        return ResponseData.fail(ReturnCodes.DATA_VALIDATION_FAIL, "数据校验错误: " + e.getMessage());
+    }
+
+    // 非法数据出错
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseData<Object> illegalArgumentExceptioHandler(IllegalArgumentException e) {
+        log.info("非法参数错误: " + e);
+        return ResponseData.fail(ReturnCodes.INVALID_ARGUMENT, "非法参数错误（极有可能是传入索引不存在导致返回空记录给Mapper造成空值错误）: " + e.getMessage());
     }
 
     //todo:数据库出错

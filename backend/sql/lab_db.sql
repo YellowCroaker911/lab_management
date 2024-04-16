@@ -32,7 +32,7 @@ create table lab
     create_time  	datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     update_time  	datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
     is_delete    	int default 0 not null comment '是否删除',
-	FOREIGN KEY		(lab_admin_id) REFERENCES user(id)
+	FOREIGN KEY		(lab_admin_id) REFERENCES user(id) on delete cascade
 ) comment '实验室';
 
 -- 课程表
@@ -53,8 +53,8 @@ create table course
     create_time  	datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     update_time  	datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
     is_delete    	int default 0 not null comment '是否删除',
-	FOREIGN KEY		(teacher_id) REFERENCES user(id),
-	FOREIGN KEY		(lab_id) REFERENCES lab(id)
+	FOREIGN KEY		(teacher_id) REFERENCES user(id) on delete cascade,
+	FOREIGN KEY		(lab_id) REFERENCES lab(id) on delete cascade
 ) comment '课程';
 
 -- 借用表
@@ -72,8 +72,8 @@ create table borrow
     create_time  	datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     update_time  	datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
     is_delete    	int default 0 not null comment '是否删除',
-	FOREIGN KEY		(student_id) REFERENCES user(id),
-	FOREIGN KEY		(lab_id) REFERENCES lab(id)
+	FOREIGN KEY		(student_id) REFERENCES user(id) on delete cascade,
+	FOREIGN KEY		(lab_id) REFERENCES lab(id) on delete cascade
 ) comment '借用';
 
 -- 维修表
@@ -88,6 +88,6 @@ create table repair
     create_time  	datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     update_time  	datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
     is_delete    	int default 0 not null comment '是否删除',
-	FOREIGN KEY		(teacher_id) REFERENCES user(id),
-	FOREIGN KEY		(lab_id) REFERENCES lab(id)
+	FOREIGN KEY		(teacher_id) REFERENCES user(id) on delete cascade,
+	FOREIGN KEY		(lab_id) REFERENCES lab(id) on delete cascade
 ) comment '维修';

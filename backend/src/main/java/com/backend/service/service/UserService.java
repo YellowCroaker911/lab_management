@@ -1,8 +1,9 @@
 package com.backend.service.service;
 
 import com.backend.model.entity.User;
-import com.backend.utils.response.ResponseData;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author Pfeistorch
@@ -10,7 +11,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2024-04-15 19:37:53
 */
 public interface UserService extends IService<User> {
-    void imPort(String userName,String password,int role);
-    String getJwtToken(String userName,String password);
+    void add(User user);
+    void delete(Long id);
+    User get(Long id);
+    List<User> getAll(Integer role);
+    List<User> getByNamePrefix(String namePrefix);
     User getLoginUser();
+    String getJwtToken(String userName,String password);
+    void alter(User user);
 }

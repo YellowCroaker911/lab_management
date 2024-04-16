@@ -41,7 +41,7 @@ public class LabController {
 
     // 修改实验室信息
     @PostMapping("/alterLab")
-    public ResponseData<Object> alter(@RequestBody @Validated LabAlterDTO labAlterDTO) {
+    public ResponseData<Object> alterLab(@RequestBody @Validated LabAlterDTO labAlterDTO) {
         Lab lab = new Lab();
         BeanUtils.copyProperties(labAlterDTO, lab);
         labService.update(lab);

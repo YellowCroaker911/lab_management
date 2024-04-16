@@ -34,7 +34,7 @@ public class LabController {
 
     // 移除实验室
     @PostMapping("/removeLab")
-    public ResponseData<Object> removeLab(@RequestParam @NotNull(message = "用户id不能为空") Long id) {
+    public ResponseData<Object> removeLab(@RequestParam @NotNull(message = "实验室id不能为空") Long id) {
         labService.delete(id);
         return ResponseData.success(null, null);
     }

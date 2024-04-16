@@ -9,6 +9,7 @@
             <result property="teacherId" column="teacher_id" jdbcType="BIGINT"/>
             <result property="labId" column="lab_id" jdbcType="BIGINT"/>
             <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="semester" column="semester" jdbcType="VARCHAR"/>
             <result property="startingWeek" column="starting_week" jdbcType="VARCHAR"/>
             <result property="endingWeek" column="ending_week" jdbcType="VARCHAR"/>

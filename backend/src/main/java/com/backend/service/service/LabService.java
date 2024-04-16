@@ -17,7 +17,7 @@ public interface LabService extends IService<Lab> {
     void update(Lab lab);
     Lab get(Long id);
     List<Lab> getAll();
-    List<Lab> getByLabAdminId(Long lab_admin_id);
+    List<Lab> getByLabAdminId(Long labAdminId);
     List<Lab> getByType(Integer type);
     List<Lab> getByNamePrefix(String namePrefix);
     List<Lab> getByLocationPrefix(String locationPrefix);

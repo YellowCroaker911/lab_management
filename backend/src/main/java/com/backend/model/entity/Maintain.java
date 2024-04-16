@@ -16,7 +16,7 @@ import lombok.Data;
  */
 @TableName(value ="repair")
 @Data
-public class Repair implements Serializable {
+public class Maintain implements Serializable {
     /**
      * 维修记录id
      */

@@ -1,9 +1,9 @@
 package com.backend.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.backend.model.entity.Repair;
-import com.backend.service.service.RepairService;
-import com.backend.service.mapper.RepairMapper;
+import com.backend.model.entity.Maintain;
+import com.backend.service.service.MaintainService;
+import com.backend.service.mapper.MaintainMapper;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,8 +12,8 @@ import org.springframework.stereotype.Service;
 * @createDate 2024-04-15 23:15:43
 */
 @Service
-public class RepairServiceImpl extends ServiceImpl<RepairMapper, Repair>
-    implements RepairService{
+public class MaintainServiceImpl extends ServiceImpl<MaintainMapper, Maintain>
+    implements MaintainService {
 
 }
 

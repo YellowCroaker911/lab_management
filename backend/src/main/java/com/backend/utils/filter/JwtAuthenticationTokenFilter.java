@@ -22,6 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.security.SignatureException;
 
+import static java.lang.Long.parseLong;
+
 // https://blog.csdn.net/m0_37731470/article/details/116754395
 
 @Component
@@ -50,15 +52,15 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         try {
             claims = JwtUtil.parseJWT(token);
         } catch (Exception e) {
-            resolver.resolveException(request, response, null, new SignatureException());   //todo：测试修改是否正确
+            resolver.resolveException(request, response, null, new SignatureException("JWT-token格式错误，无法转换"));
             return;
         }
         userid = claims.getSubject();
 
-        User user = userMapper.selectById(Integer.parseInt(userid));
+        User user = userMapper.selectById(parseLong(userid));
 
         if (user == null) {
-            resolver.resolveException(request, response, null, new ArithmeticException());  //todo：测试修改是否正确
+            resolver.resolveException(request, response, null, new SignatureException("无法找到JWT-token对应的用户Id"));
             return;
         }
 

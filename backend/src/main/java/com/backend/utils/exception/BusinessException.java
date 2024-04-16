@@ -1,6 +1,5 @@
 package com.backend.utils.exception;
 
-import com.backend.utils.response.ReturnCodes;
 import lombok.Getter;
 
 

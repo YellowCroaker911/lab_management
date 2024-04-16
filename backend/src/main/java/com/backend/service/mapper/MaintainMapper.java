@@ -1,6 +1,6 @@
 package com.backend.service.mapper;
 
-import com.backend.model.entity.Repair;
+import com.backend.model.entity.Maintain;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 * @Entity com.backend.model.entity.Repair
 */
 @Mapper
-public interface RepairMapper extends BaseMapper<Repair> {
+public interface MaintainMapper extends BaseMapper<Maintain> {
 
 }
 

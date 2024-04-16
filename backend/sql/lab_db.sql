@@ -48,7 +48,7 @@ create table course
 	session 		varchar(255) not null comment '节次，格式为num1-num2（表示节次为num1-num2节）',
 	student_num		int not null comment '学生人数',
 	major 			varchar(255) comment '学生专业',
-	class			varchar(255) comment '学生班级',
+	clazz			varchar(255) comment '学生班级',
 	status    		int default 0 not null comment '排课状态，0-未排课，1-已排课',
     create_time  	datetime default CURRENT_TIMESTAMP not null comment '创建时间',
     update_time  	datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',

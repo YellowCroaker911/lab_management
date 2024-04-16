@@ -10,55 +10,73 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-// todo:给model的所有类的字段加注解
-
 /**
- * 用户
- * @TableName user
+ * 课程
+ * @TableName course
  */
-@TableName(value ="user")
+@TableName(value ="course")
 @Data
-public class User implements Serializable {
+public class Course implements Serializable {
     /**
-     * 用户id
+     * 课程id
      */
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
-     * 账号，约定管理员以a开头，学生以s开头，教师以t开头，实验员以l开头
+     * 教师id
      */
-    private String username;
+    private Long teacherId;
 
     /**
-     * 密码
+     * 实验室id，默认只是占位，已通过后（status=1）分配
      */
-    private String password;
+    private Long labId;
 
     /**
-     * 用户角色，0-管理员，1-学生，2-教师，3-实验员
+     * 需求实验室类别，0-软件，1-硬件，2-网络
      */
-    private Integer role;
+    private Integer type;
 
     /**
-     * 姓名
+     * 学期，格式为year1-year2-num（year1-year2为学年，num为1或2）
      */
-    private String name;
+    private String semester;
 
     /**
-     * 专业
+     * 起始周
+     */
+    private String startingWeek;
+
+    /**
+     * 结束周
+     */
+    private String endingWeek;
+
+    /**
+     * 节次，格式为num1-num2（表示节次为num1-num2节）
+     */
+    private String session;
+
+    /**
+     * 学生人数
+     */
+    private Integer studentNum;
+
+    /**
+     * 学生专业
      */
     private String major;
 
     /**
-     * 班级
+     * 学生班级
      */
     private String clazz;
 
     /**
-     * 职称
+     * 排课状态，0-未排课，1-已排课
      */
-    private String title;
+    private Integer status;
 
     /**
      * 创建时间

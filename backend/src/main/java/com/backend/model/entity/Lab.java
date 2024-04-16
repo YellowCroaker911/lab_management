@@ -10,55 +10,43 @@ import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-// todo:给model的所有类的字段加注解
-
 /**
- * 用户
- * @TableName user
+ * 实验室
+ * @TableName lab
  */
-@TableName(value ="user")
+@TableName(value ="lab")
 @Data
-public class User implements Serializable {
+public class Lab implements Serializable {
     /**
-     * 用户id
+     * 实验室id
      */
     @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
-     * 账号，约定管理员以a开头，学生以s开头，教师以t开头，实验员以l开头
+     * 实验员id
      */
-    private String username;
+    private Long labAdminId;
 
     /**
-     * 密码
+     * 实验室类别，0-软件，1-硬件，2-网络
      */
-    private String password;
+    private Integer type;
 
     /**
-     * 用户角色，0-管理员，1-学生，2-教师，3-实验员
-     */
-    private Integer role;
-
-    /**
-     * 姓名
+     * 实验室名称
      */
     private String name;
 
     /**
-     * 专业
+     * 实验室地点，约定用3位数字表示
      */
-    private String major;
+    private String location;
 
     /**
-     * 班级
+     * 设备数量
      */
-    private String clazz;
-
-    /**
-     * 职称
-     */
-    private String title;
+    private Integer equipmentNum;
 
     /**
      * 创建时间

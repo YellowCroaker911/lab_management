@@ -10,8 +10,7 @@
             <result property="labId" column="lab_id" jdbcType="BIGINT"/>
             <result property="reason" column="reason" jdbcType="VARCHAR"/>
             <result property="semester" column="semester" jdbcType="VARCHAR"/>
-            <result property="startingWeek" column="starting_week" jdbcType="VARCHAR"/>
-            <result property="endingWeek" column="ending_week" jdbcType="VARCHAR"/>
+            <result property="week" column="week" jdbcType="VARCHAR"/>
             <result property="session" column="session" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>

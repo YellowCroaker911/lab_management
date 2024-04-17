@@ -14,3 +14,4 @@
 对于`RequestBody`还要再注解`Validated`。
 - 全局异常处理：全局异常处理器`GlobalExceptionHandler`会优先匹配子异常处理方法(带`ExceptionHandler`注解)，再匹配父异常处理方法，
 调试过程中可以把常出现的异常拎出来定义一个异常处理方法（对应一个`ReturnCode`），把异常信息返回给前端。
+- SQL语句包裹：mapper xml内的sql语句最好用`<![CDATA[]]>`包裹以避免出现XML的特殊字符而造成编译错误

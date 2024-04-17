@@ -30,10 +30,14 @@
         major,class,status,
         create_time,update_time,is_delete
     </sql>
+
+<!--    mapper xml内的sql语句最好用<![CDATA[ ]]>包裹以避免出现XML的特殊字符而造成编译错误-->
     <select id="getByWeek" resultType="com.backend.model.entity.Course">
+        <![CDATA[
         SELECT *
         FROM course
         WHERE CAST(starting_week AS SIGNED) <= CAST(#{week} AS SIGNED)
         AND CAST(ending_week AS SIGNED) >= CAST(#{week} AS SIGNED);
+        ]]>
     </select>
 </mapper>

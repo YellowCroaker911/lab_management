@@ -80,7 +80,7 @@ public class CourseController {
     // 根据实验室id获取课程
     @GetMapping("/getCoursesByLabId")
     public ResponseData<Object> getCoursesByLabId(@RequestParam @NotNull(message = "实验室id不能为空") Long labId){
-        List<Course> courses = courseService.getByTeacherId(labId);
+        List<Course> courses = courseService.getByLabId(labId);
         return ResponseData.success(courses, null);
     }
 

@@ -4,6 +4,8 @@ import com.backend.model.entity.Borrow;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
 * @author Pfeistorch
 * @description 针对表【borrow(借用)】的数据库操作Mapper
@@ -12,7 +14,6 @@ import org.apache.ibatis.annotations.Mapper;
 */
 @Mapper
 public interface BorrowMapper extends BaseMapper<Borrow> {
-
 }
 
 

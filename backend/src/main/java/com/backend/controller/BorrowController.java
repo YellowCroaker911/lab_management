@@ -2,6 +2,7 @@ package com.backend.controller;
 
 import com.backend.model.dto.borrow.BorrowAdmitDTO;
 import com.backend.model.dto.borrow.BorrowAlterDTO;
+import com.backend.model.dto.borrow.BorrowCompleteDTO;
 import com.backend.model.dto.borrow.BorrowImportDTO;
 import com.backend.model.entity.Borrow;
 import com.backend.service.service.BorrowService;
@@ -46,12 +47,20 @@ public class BorrowController {
         return ResponseData.success(null, null);
     }
 
-    // 审核通过借用记录
+    // 审核借用记录
     @PostMapping("/admitBorrow")
     public ResponseData<Object> admitBorrow(@RequestParam @Validated BorrowAdmitDTO borrowAdmitDTO) {
         Borrow borrow = new Borrow();
         BeanUtils.copyProperties(borrowAdmitDTO, borrow);
-        borrow.setStatus(1);
+        borrowService.update(borrow);
+        return ResponseData.success(null, null);
+    }
+
+    // 确认使用完毕
+    @PostMapping("/completeBorrow")
+    public ResponseData<Object> completeBorrow(@RequestParam @Validated BorrowCompleteDTO borrowCompleteDTO) {
+        Borrow borrow = new Borrow();
+        BeanUtils.copyProperties(borrowCompleteDTO, borrow);
         borrowService.update(borrow);
         return ResponseData.success(null, null);
     }

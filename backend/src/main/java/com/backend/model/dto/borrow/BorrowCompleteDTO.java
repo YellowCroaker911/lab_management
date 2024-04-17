@@ -7,7 +7,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Data
-public class BorrowAdmitDTO {
+public class BorrowCompleteDTO {
     /**
      * 借用记录id
      */
@@ -18,7 +18,7 @@ public class BorrowAdmitDTO {
      * 审核状态，0-未审核，1-通过，2-驳回，3-使用完毕
      */
     @NotNull(message = "审核状态不能为空")
-    @Min(value = 1, message = "审核状态必须在{1,2}内")
-    @Max(value = 2, message = "审核状态必须在{1,2}内")
+    @Min(value = 3, message = "审核状态必须在{3}内")
+    @Max(value = 3, message = "审核状态必须在{3}内")
     private Integer status;
 }

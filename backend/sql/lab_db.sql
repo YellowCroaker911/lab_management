@@ -93,7 +93,7 @@ create table borrow
 	semester		varchar(255) not null comment '学期，格式为year1-year2-num（year1-year2为学年，num为1或2）',
 	week 			varchar(255) not null comment '周，1-20',
 	session 		varchar(255) not null comment '节次，格式为num1-num2（表示节次为num1-num2节）',
-	status    		int default 0 not null comment '审核状态，0-未审核，1-通过，2-驳回',
+	status    		int default 0 not null comment '审核状态，0-未审核，1-通过，2-驳回，3-使用完毕',
 	create_time  	datetime default CURRENT_TIMESTAMP not null comment '创建时间',
 	update_time  	datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
 	is_delete    	int default 0 not null comment '是否删除',

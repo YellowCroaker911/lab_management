@@ -46,12 +46,11 @@ public class CourseController {
         return ResponseData.success(null, null);
     }
 
-    // 审核通过课程
+    // 排课课程
     @PostMapping("/admitCourse")
     public ResponseData<Object> admitCourse(@RequestParam @Validated CourseAdmitDTO courseAdmitDTO) {
         Course course = new Course();
         BeanUtils.copyProperties(courseAdmitDTO, course);
-        course.setStatus(1);
         courseService.update(course);
         return ResponseData.success(null, null);
     }

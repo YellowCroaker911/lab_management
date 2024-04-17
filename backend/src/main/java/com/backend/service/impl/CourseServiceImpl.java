@@ -122,6 +122,10 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             throw new BusinessException("索引不存在");
         }
 
+        if(qCourse.getStatus()==1){
+            throw new BusinessException("已排课，无法修改");
+        }
+
         QueryWrapper<Course> qw3 = new QueryWrapper<>();
         qw3.ne("id", qCourse.getId())
                 .eq("teacher_id", course.getTeacherId())

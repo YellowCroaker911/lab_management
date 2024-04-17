@@ -16,4 +16,12 @@ public class CourseAdmitDTO {
      */
     @NotNull(message = "实验室id不能为空")
     private Long labId;
+
+    /**
+     * 排课状态，0-未排课，1-已排课
+     */
+    @NotNull(message = "排课状态不能为空")
+    @Min(value = 1, message = "排课状态必须在{1}内")
+    @Max(value = 1, message = "排课状态必须在{1}内")
+    private Integer status;
 }

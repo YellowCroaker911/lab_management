@@ -15,13 +15,13 @@ import java.util.List;
 import static java.lang.Integer.parseInt;
 
 /**
-* @author Pfeistorch
-* @description 针对表【borrow(借用)】的数据库操作Service实现
-* @createDate 2024-04-15 23:15:49
-*/
+ * @author Pfeistorch
+ * @description 针对表【borrow(借用)】的数据库操作Service实现
+ * @createDate 2024-04-15 23:15:49
+ */
 @Service
 public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
-    implements BorrowService{
+        implements BorrowService {
 
     @Autowired
     UserMapper userMapper;
@@ -66,7 +66,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
         qw3.eq("student_id", borrow.getStudentId())
                 .eq("lab_id", borrow.getLabId())
                 .eq("semester", borrow.getSemester())
-                .eq("week",borrow.getWeek())
+                .eq("week", borrow.getWeek())
                 .eq("session", borrow.getSession());
         List<Borrow> borrows = borrowMapper.selectList(qw3);
         if (!borrows.isEmpty()) {
@@ -84,6 +84,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
     @Override
     public void update(Borrow borrow) {
         User user = userMapper.selectById(borrow.getStudentId());
+
         if (user.getRole() != 1) {
             throw new BusinessException("学生id错误");
         }
@@ -117,12 +118,16 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
             throw new BusinessException("索引不存在");
         }
 
+        if (qBorrow.getStatus() == 1 || qBorrow.getStatus() == 2 || qBorrow.getStatus() == 3) {
+            throw new BusinessException("已审核，无法修改");
+        }
+
         QueryWrapper<Borrow> qw3 = new QueryWrapper<>();
         qw3.ne("id", qBorrow.getId())
                 .eq("student_id", borrow.getStudentId())
                 .eq("lab_id", borrow.getLabId())
                 .eq("semester", borrow.getSemester())
-                .eq("week",borrow.getWeek())
+                .eq("week", borrow.getWeek())
                 .eq("session", borrow.getSession());
         List<Borrow> borrows = borrowMapper.selectList(qw3);
         if (!borrows.isEmpty()) {

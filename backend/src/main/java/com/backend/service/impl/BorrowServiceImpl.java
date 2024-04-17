@@ -36,6 +36,9 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
     SessionMapper sessionMapper;
 
     @Autowired
+    CourseMapper courseMapper;
+
+    @Autowired
     BorrowMapper borrowMapper;
 
     @Override
@@ -68,9 +71,25 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
                 .eq("semester", borrow.getSemester())
                 .eq("week", borrow.getWeek())
                 .eq("session", borrow.getSession());
-        List<Borrow> borrows = borrowMapper.selectList(qw3);
-        if (!borrows.isEmpty()) {
-            throw new BusinessException("课程记录已存在");
+        List<Borrow> borrows1 = borrowMapper.selectList(qw3);
+        if (!borrows1.isEmpty()) {
+            throw new BusinessException("借用记录已存在");
+        }
+
+        QueryWrapper<Borrow> qw4 = new QueryWrapper<>();
+        qw4.eq("lab_id", borrow.getLabId())
+                .eq("semester", borrow.getSemester())
+                .eq("week", borrow.getWeek())
+                .eq("session", borrow.getSession());
+        List<Borrow> borrows2 = borrowMapper.selectList(qw4);
+        if (!borrows2.isEmpty()) {
+            throw new BusinessException("实验室此时不可用，已有学生借用");
+        }
+
+        List<Course> courses = courseMapper.getConflict(borrow.getLabId(),
+                borrow.getSemester(), borrow.getWeek(), borrow.getSession());
+        if (!courses.isEmpty()) {
+            throw new BusinessException("实验室此时不可用，已被用作上课");
         }
 
         borrowMapper.insert(borrow);
@@ -113,6 +132,22 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
             throw new BusinessException("节次不存在");
         }
 
+        QueryWrapper<Borrow> qw3 = new QueryWrapper<>();
+        qw3.eq("lab_id", borrow.getLabId())
+                .eq("semester", borrow.getSemester())
+                .eq("week", borrow.getWeek())
+                .eq("session", borrow.getSession());
+        List<Borrow> borrows2 = borrowMapper.selectList(qw3);
+        if (!borrows2.isEmpty()) {
+            throw new BusinessException("实验室此时不可用，已有学生借用");
+        }
+
+        List<Course> courses = courseMapper.getConflict(borrow.getLabId(),
+                borrow.getSemester(), borrow.getWeek(), borrow.getSession());
+        if (!courses.isEmpty()) {
+            throw new BusinessException("实验室此时不可用，已被用作上课");
+        }
+
         Borrow qBorrow = borrowMapper.selectById(borrow.getId());
         if (qBorrow == null) {
             throw new BusinessException("索引不存在");
@@ -130,14 +165,14 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
             throw new BusinessException("已完成，无法修改");
         }
 
-        QueryWrapper<Borrow> qw3 = new QueryWrapper<>();
-        qw3.ne("id", qBorrow.getId())
+        QueryWrapper<Borrow> qw4 = new QueryWrapper<>();
+        qw4.ne("id", qBorrow.getId())
                 .eq("student_id", borrow.getStudentId())
                 .eq("lab_id", borrow.getLabId())
                 .eq("semester", borrow.getSemester())
                 .eq("week", borrow.getWeek())
                 .eq("session", borrow.getSession());
-        List<Borrow> borrows = borrowMapper.selectList(qw3);
+        List<Borrow> borrows = borrowMapper.selectList(qw4);
         if (!borrows.isEmpty()) {
             throw new BusinessException("借用记录已存在");
         }

@@ -16,6 +16,8 @@ import java.util.List;
 @Mapper
 public interface CourseMapper extends BaseMapper<Course> {
     List<Course> getByWeek(@Param("week") String week);
+    List<Course> getConflict(@Param("labId") Long labId,@Param("semester") String semester,
+                             @Param("week") String week,@Param("session") String session);
 }
 
 

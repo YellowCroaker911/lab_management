@@ -40,4 +40,15 @@
         AND CAST(ending_week AS SIGNED) >= CAST(#{week} AS SIGNED);
         ]]>
     </select>
+    <select id="getConflict" resultType="com.backend.model.entity.Course">
+        <![CDATA[
+        SELECT *
+        FROM course
+        WHERE lab_id = #{labId}
+          AND semester = #{semester}
+          AND CAST(starting_week AS SIGNED) <= CAST(#{week} AS SIGNED)
+          AND CAST(ending_week AS SIGNED) >= CAST(#{week} AS SIGNED)
+          AND session = #{session};
+        ]]>
+    </select>
 </mapper>

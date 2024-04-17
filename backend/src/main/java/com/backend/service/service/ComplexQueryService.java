@@ -7,7 +7,7 @@ import javafx.util.Pair;
 import java.util.List;
 
 public interface ComplexQueryService {
-    List<Pair<Lab, Session>> getAvailableLab(Integer type,Integer student_num,
-                                             String semester,String startingWeek,
-                                             String endingWeek);
+//    List<Pair<Lab, Session>> getAvailableLab(Integer type,Integer student_num,
+//                                             String semester,String startingWeek,
+//                                             String endingWeek);
 }

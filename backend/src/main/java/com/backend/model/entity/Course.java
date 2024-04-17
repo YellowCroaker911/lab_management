@@ -48,6 +48,7 @@ public class Course implements Serializable {
     /**
      * 课程名称
      */
+    @NotBlank(message = "课程名称不能为空")
     private String name;
 
     /**

@@ -65,7 +65,7 @@ create table course
 	teacher_id	 	bigint not null comment '教师id',
 	lab_id	 	   	bigint default 1 not null comment '实验室id，默认只是占位，已通过后（status=1）分配',
 	type 			int not null comment '需求实验室类别，0-软件，1-硬件，2-网络',
-	name			varchar(255) comment '课程名称',
+	name			varchar(255) not null comment '课程名称',
 	semester		varchar(255) not null comment '学期，格式为year1-year2-num（year1-year2为学年，num为1或2）',
 	starting_week 	varchar(255) not null comment '起始周',
 	ending_week 	varchar(255) not null comment '结束周',

@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -71,6 +72,12 @@ public class GlobalExceptionHandler {
     public ResponseData<Object> dataIntegrityViolationExceptionHandler(DataIntegrityViolationException e) {
         log.info("数据库操作违反完整性约束错误: " + e);
         return ResponseData.fail(ReturnCodes.DATABASE_FAIL, "数据库操作违反完整性约束错误: " + e.getMessage());
+    }
+
+    @ExceptionHandler(BadSqlGrammarException.class)
+    public ResponseData<Object> dataIntegrityViolationExceptionHandler(BadSqlGrammarException e) {
+        log.info("数据库操作语法错误: " + e);
+        return ResponseData.fail(ReturnCodes.DATABASE_FAIL, "数据库操作语法错误: " + e.getMessage());
     }
 
 

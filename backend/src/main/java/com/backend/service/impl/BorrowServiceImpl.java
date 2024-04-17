@@ -46,7 +46,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
         }
 
         QueryWrapper<Semester> qw1 = new QueryWrapper<>();
-        qw1.eq("semester", borrow.getSession());
+        qw1.eq("semester", borrow.getSemester());
         Semester semester = semesterMapper.selectOne(qw1);
         if (semester == null) {
             throw new BusinessException("学期不存在");
@@ -97,7 +97,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
         }
 
         QueryWrapper<Semester> qw1 = new QueryWrapper<>();
-        qw1.eq("semester", borrow.getSession());
+        qw1.eq("semester", borrow.getSemester());
         Semester semester = semesterMapper.selectOne(qw1);
         if (semester == null) {
             throw new BusinessException("学期不存在");
@@ -118,8 +118,16 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
             throw new BusinessException("索引不存在");
         }
 
-        if (qBorrow.getStatus() == 1 || qBorrow.getStatus() == 2 || qBorrow.getStatus() == 3) {
-            throw new BusinessException("已审核，无法修改");
+        if (qBorrow.getStatus() == 1) {
+            if (borrow.getStatus() != 3) {
+                throw new BusinessException("已审核，无法修改");
+            }
+        }
+        if (qBorrow.getStatus() == 2) {
+            throw new BusinessException("已驳回，无法修改");
+        }
+        if (qBorrow.getStatus() == 3) {
+            throw new BusinessException("已完成，无法修改");
         }
 
         QueryWrapper<Borrow> qw3 = new QueryWrapper<>();

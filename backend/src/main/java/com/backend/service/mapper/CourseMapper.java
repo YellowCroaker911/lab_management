@@ -3,6 +3,7 @@ package com.backend.service.mapper;
 import com.backend.model.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
 */
 @Mapper
 public interface CourseMapper extends BaseMapper<Course> {
-    List<Course> getByWeek(String week);
+    List<Course> getByWeek(@Param("week") String week);
 }
 
 

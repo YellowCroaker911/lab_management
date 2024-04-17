@@ -112,8 +112,8 @@ public class BorrowController {
     // 根据申请状态获取借用记录
     @GetMapping("/getBorrowsByStatus")
     public ResponseData<Object> getBorrowsByStatus(@RequestParam @NotNull(message = "申请状态不能为空")
-                                                   @Min(value = 0, message = "申请状态必须在{0,1,2}内")
-                                                   @Max(value = 2, message = "申请状态必须在{0,1,2}内")
+                                                   @Min(value = 0, message = "申请状态必须在{0,1,2,3}内")
+                                                   @Max(value = 3, message = "申请状态必须在{0,1,2,3}内")
                                                    Integer status){
         List<Borrow> borrows = borrowService.getByStatus(status);
         return ResponseData.success(borrows, null);

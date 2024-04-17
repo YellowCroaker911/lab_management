@@ -6,7 +6,6 @@ import javax.validation.constraints.*;
 
 @Data
 public class CourseImportDTO {
-
     /**
      * 教师id
      */
@@ -22,6 +21,7 @@ public class CourseImportDTO {
     /**
      * 课程名称
      */
+    @NotBlank(message = "课程名称不能为空")
     private String name;
     /**
      * 学期，格式为year1-year2-num（year1-year2为学年，num为1或2）

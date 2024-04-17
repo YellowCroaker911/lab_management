@@ -9,6 +9,12 @@ import javax.validation.constraints.Pattern;
 @Data
 public class BorrowAlterDTO {
     /**
+     * 借用记录id
+     */
+    @NotNull(message = "借用记录id不能为空")
+    private Long id;
+
+    /**
      * 实验室id，默认只是占位，已通过后（status=1）分配
      */
     @NotNull(message = "实验室id不能为空")

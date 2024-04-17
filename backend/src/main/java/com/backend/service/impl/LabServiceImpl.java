@@ -52,7 +52,7 @@ public class LabServiceImpl extends ServiceImpl<LabMapper, Lab>
     @Override
     public void update(Lab lab) {
         User user = userMapper.selectById(lab.getLabAdminId());
-        if (user.getRole() != 2) {
+        if (user.getRole() != 3) {
             throw new BusinessException("实验员id错误");
         }
         Lab qLab = labMapper.selectById(lab.getId());

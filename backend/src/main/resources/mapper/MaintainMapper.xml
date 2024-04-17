@@ -21,4 +21,18 @@
         fault_description,maintenance_description,status,
         create_time,update_time,is_delete
     </sql>
+    <select id="getSame" resultType="com.backend.model.entity.Maintain">
+        <![CDATA[
+        SELECT *
+        FROM maintain
+        WHERE teacher_id = #{teacherId} AND lab_id = #{labId} AND DATE(create_time) = DATE(#{date});
+        ]]>
+    </select>
+    <select id="getByLabAdminId" resultType="com.backend.model.entity.Maintain">
+        <![CDATA[
+            SELECT *
+            FROM maintain
+            WHERE lab_id IN (SELECT lab_id FROM lab WHERE lab_admin_Id = #{labAdminId});
+        ]]>
+    </select>
 </mapper>

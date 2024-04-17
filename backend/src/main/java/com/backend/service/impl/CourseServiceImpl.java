@@ -45,7 +45,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         }
 
         QueryWrapper<Semester> qw1 = new QueryWrapper<>();
-        qw1.eq("semester", course.getSession());
+        qw1.eq("semester", course.getSemester());
         Semester semester = semesterMapper.selectOne(qw1);
         if (semester == null) {
             throw new BusinessException("学期不存在");
@@ -101,7 +101,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
         }
 
         QueryWrapper<Semester> qw1 = new QueryWrapper<>();
-        qw1.eq("semester", course.getSession());
+        qw1.eq("semester", course.getSemester());
         Semester semester = semesterMapper.selectOne(qw1);
         if (semester == null) {
             throw new BusinessException("学期不存在");

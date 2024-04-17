@@ -49,7 +49,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
             if (user.getName() != null || user.getMajor() != null || user.getClazz() != null || user.getTitle() != null) {
                 throw new BusinessException("管理员角色错误字段赋值");
             }
-            if (user.getUsername().charAt(0) != 'r') {
+            if (user.getUsername().charAt(0) != 'a') {
                 throw new BusinessException("管理员角色账户名违反约定");
             }
         } else if (user.getRole() == 1) {

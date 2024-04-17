@@ -1,7 +1,6 @@
 package com.backend.service.service;
 
 import com.backend.model.entity.Lab;
-import com.backend.model.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -20,6 +19,6 @@ public interface LabService extends IService<Lab> {
     List<Lab> getByLabAdminId(Long labAdminId);
     List<Lab> getByType(Integer type);
     List<Lab> getByNamePrefix(String namePrefix);
-    List<Lab> getByLocationPrefix(String locationPrefix);
+    List<Lab> getByNumberPrefix(String numberPrefix);
     List<Lab> getByLeastEquipmentNum(Integer equipmentNum);
 }

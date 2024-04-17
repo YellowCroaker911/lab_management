@@ -32,7 +32,7 @@ public class LabServiceImpl extends ServiceImpl<LabMapper, Lab>
     @Override
     public void add(Lab lab) {
         QueryWrapper<Lab> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("location", lab.getLocation());
+        queryWrapper.eq("number", lab.getNumber());
         List<Lab> labs = labMapper.selectList(queryWrapper);
         if (!labs.isEmpty()) {
             throw new BusinessException("实验室地点已存在");
@@ -95,9 +95,9 @@ public class LabServiceImpl extends ServiceImpl<LabMapper, Lab>
     }
 
     @Override
-    public List<Lab> getByLocationPrefix(String locationPrefix) {
+    public List<Lab> getByNumberPrefix(String numberPrefix) {
         QueryWrapper<Lab> queryWrapper = new QueryWrapper<>();
-        queryWrapper.like("location", locationPrefix);
+        queryWrapper.like("number", numberPrefix);
         return labMapper.selectList(queryWrapper);
     }
 

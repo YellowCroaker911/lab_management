@@ -39,9 +39,9 @@ public class Lab implements Serializable {
     private String name;
 
     /**
-     * 实验室地点，约定用3位数字表示
+     * 实验室编号，约定用3位数字表示
      */
-    private String location;
+    private String number;
 
     /**
      * 设备数量

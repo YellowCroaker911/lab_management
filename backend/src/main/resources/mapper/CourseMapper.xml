@@ -30,4 +30,10 @@
         major,class,status,
         create_time,update_time,is_delete
     </sql>
+    <select id="getByWeek" resultType="com.backend.model.entity.Course">
+        SELECT *
+        FROM course
+        WHERE CAST(starting_week AS SIGNED) <= CAST(#{week} AS SIGNED)
+        AND CAST(ending_week AS SIGNED) >= CAST(#{week} AS SIGNED);
+    </select>
 </mapper>

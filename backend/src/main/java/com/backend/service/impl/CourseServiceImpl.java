@@ -184,6 +184,11 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
     }
 
     @Override
+    public List<Course> getByWeek(String week) {
+        return courseMapper.getByWeek(week);
+    }
+
+    @Override
     public List<Course> getByStatus(Integer status) {
         QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("status", status);

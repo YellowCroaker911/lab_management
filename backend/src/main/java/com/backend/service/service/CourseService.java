@@ -22,5 +22,6 @@ public interface CourseService extends IService<Course> {
     List<Course> getByType(Integer type);
     List<Course> getByNamePrefix(String namePrefix);
     List<Course> getBySemester(String semester);
+    List<Course> getByWeek(String week);
     List<Course> getByStatus(Integer status);
 }

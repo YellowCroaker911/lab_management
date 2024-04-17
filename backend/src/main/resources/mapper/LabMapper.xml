@@ -9,7 +9,7 @@
             <result property="labAdminId" column="lab_admin_id" jdbcType="BIGINT"/>
             <result property="type" column="type" jdbcType="INTEGER"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="location" column="location" jdbcType="VARCHAR"/>
+            <result property="number" column="number" jdbcType="VARCHAR"/>
             <result property="equipmentNum" column="equipment_num" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>

@@ -4,6 +4,8 @@ import com.backend.model.entity.Course;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
 * @author Pfeistorch
 * @description 针对表【course(课程)】的数据库操作Mapper
@@ -12,7 +14,7 @@ import org.apache.ibatis.annotations.Mapper;
 */
 @Mapper
 public interface CourseMapper extends BaseMapper<Course> {
-
+    List<Course> getByWeek(String week);
 }
 
 

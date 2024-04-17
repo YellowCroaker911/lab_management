@@ -85,10 +85,10 @@ public class LabController {
         return ResponseData.success(labs, null);
     }
 
-    // 根据实验室位置前缀获取实验室
-    @GetMapping("/getLabsByLocationPrefix")
-    public ResponseData<Object> getLabsByLocationPrefix(@RequestParam @NotEmpty(message = "实验室位置前缀不能为空") String locationPrefix) {
-        List<Lab> labs = labService.getByLocationPrefix(locationPrefix);
+    // 根据实验室编号前缀获取实验室
+    @GetMapping("/getLabsByNumberPrefix")
+    public ResponseData<Object> getLabsByNumberPrefix(@RequestParam @NotEmpty(message = "实验室编号前缀不能为空") String numberPrefix) {
+        List<Lab> labs = labService.getByNumberPrefix(numberPrefix);
         return ResponseData.success(labs, null);
     }
 

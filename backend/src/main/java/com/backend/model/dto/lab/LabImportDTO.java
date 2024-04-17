@@ -18,11 +18,11 @@ public class LabImportDTO {
     private Integer type;
     private String name;
     /**
-     * 实验室地点，约定用3位数字表示
+     * 实验室编号，约定用3位数字表示
      */
-    @NotNull(message="实验室地点不能为空")
-    @Pattern(regexp = "^\\d{3}$",message = "实验室地点为3位数字")
-    private String location;
+    @NotNull(message="实验室编号不能为空")
+    @Pattern(regexp = "^\\d{3}$",message = "实验室编号为3位数字")
+    private String number;
     /**
      * 设备数量
      */

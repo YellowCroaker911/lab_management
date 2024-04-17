@@ -108,6 +108,14 @@ public class CourseController {
         return ResponseData.success(courses, null);
     }
 
+    // 根据星期获取课程
+    @GetMapping("/getCoursesByWeek")
+    public ResponseData<Object> getCoursesByWeek(@RequestParam @NotBlank(message = "星期不能为空")
+                                                     @Pattern(regexp = "^(?:[1-9]|1[0-9]|20)$",message = "星期格式错误") String week){
+        List<Course> courses = courseService.getByWeek(week);
+        return ResponseData.success(courses, null);
+    }
+
     // 根据排课状态获取课程
     @GetMapping("/getCoursesByStatus")
     public ResponseData<Object> getCoursesByStatus(@RequestParam @NotNull(message = "排课状态不能为空")

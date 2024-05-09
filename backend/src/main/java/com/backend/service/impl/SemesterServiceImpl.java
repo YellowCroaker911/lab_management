@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
-* @author Pfeistorch
-* @description 针对表【semester(学年)】的数据库操作Service实现
-* @createDate 2024-04-16 21:27:15
-*/
+ * @author Pfeistorch
+ * @description 针对表【semester(学年)】的数据库操作Service实现
+ * @createDate 2024-04-16 21:27:15
+ */
 @Service
 public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester>
-    implements SemesterService{
+        implements SemesterService {
 
     @Autowired
     SemesterMapper semesterMapper;
@@ -48,6 +48,16 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester>
         if (qSemester == null) {
             throw new BusinessException("索引不存在");
         }
+
+        // 更新旧学期状态
+        if (semester.getStatus() == 1) {
+            QueryWrapper<Semester> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("status", 1);
+            Semester oldSemester = semesterMapper.selectOne(queryWrapper);
+            oldSemester.setStatus(0);
+            semesterMapper.updateById(oldSemester);
+        }
+
         BeanUtils.copyProperties(semester, qSemester);
         semesterMapper.updateById(qSemester);
     }

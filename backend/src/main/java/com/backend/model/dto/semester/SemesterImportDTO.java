@@ -18,6 +18,6 @@ public class SemesterImportDTO {
      * 周，18-20
      */
     @NotEmpty(message = "学期周数不能为空")
-    @Pattern(regexp = "^(18|29|20)$",message = "学期周数格式错误")
+    @Pattern(regexp = "^(18|19|20)$",message = "学期周数格式错误")
     private String week;
 }

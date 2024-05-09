@@ -8,6 +8,7 @@
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="semester" column="semester" jdbcType="VARCHAR"/>
             <result property="week" column="week" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>

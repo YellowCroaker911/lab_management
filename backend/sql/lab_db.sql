@@ -28,6 +28,7 @@ create table semester
 	id           	bigint auto_increment comment '学年id' primary key,
 	semester		varchar(255) not null unique comment '学期，格式为year1-year2-num（year1-year2为学年，num为1或2）',
 	week			varchar(255) not null comment '周',
+	status  		int default 0 not null comment '当前学期状态，0-否，1-是',
 	create_time  	datetime default CURRENT_TIMESTAMP not null comment '创建时间',
 	update_time  	datetime default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '更新时间',
 	is_delete    	int default 0 not null comment '是否删除'

@@ -7,6 +7,12 @@ import javax.validation.constraints.*;
 @Data
 public class SemesterAlterDTO {
     /**
+     * 学期id
+     */
+    @NotNull(message = "学期id不能为空")
+    private Long id;
+
+    /**
      * 周，18-20
      */
     @NotEmpty(message = "学期周数不能为空")

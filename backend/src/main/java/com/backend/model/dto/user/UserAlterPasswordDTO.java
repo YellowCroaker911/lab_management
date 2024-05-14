@@ -10,10 +10,18 @@ public class UserAlterPasswordDTO {
      */
     @NotNull(message = "用户id不能为空")
     private Long id;
+
+    /**
+     * 旧密码
+     */
+    @NotEmpty(message = "旧密码不能为空")
+    @Pattern(regexp = "^.{6,20}$",message = "旧密码必须在6到20位之间")
+    private String oldPassword;
+
     /**
      * 密码
      */
-    @NotEmpty(message = "密码不能为空")
-    @Pattern(regexp = "^.{6,20}$",message = "密码必须在6到20位之间")
-    private String password;
+    @NotEmpty(message = "新密码不能为空")
+    @Pattern(regexp = "^.{6,20}$",message = "新密码必须在6到20位之间")
+    private String Password;
 }

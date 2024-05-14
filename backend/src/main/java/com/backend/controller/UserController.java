@@ -1,15 +1,14 @@
 package com.backend.controller;
 
-import com.backend.model.dto.user.UserAlterDTO;
-import com.backend.model.dto.user.UserAlterPasswordDTO;
-import com.backend.model.dto.user.UserImportDTO;
-import com.backend.model.dto.user.UserLoginDTO;
+import com.backend.model.dto.user.*;
 import com.backend.model.entity.User;
 import com.backend.model.vo.UserLoginVO;
 import com.backend.service.service.UserService;
+import com.backend.utils.exception.BusinessException;
 import com.backend.utils.response.ResponseData;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +25,9 @@ import java.util.List;
 public class UserController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     // 导入用户
     @PostMapping("/importUser")
@@ -52,9 +54,22 @@ public class UserController {
         return ResponseData.success(null, null);
     }
 
+    // 重置用户密码
+    @PostMapping("/resetPassword")
+    public ResponseData<Object> resetPassword(@RequestBody @Validated UserResetPasswordDTO userResetPasswordDTO) {
+        User user = new User();
+        BeanUtils.copyProperties(userResetPasswordDTO, user);
+        userService.update(user);
+        return ResponseData.success(null, null);
+    }
+
     // 修改用户密码
     @PostMapping("/alterPassword")
     public ResponseData<Object> alterPassword(@RequestBody @Validated UserAlterPasswordDTO userAlterPasswordDTO) {
+        User loginUser = userService.getLoginUser();
+        if(!passwordEncoder.matches(userAlterPasswordDTO.getOldPassword(), loginUser.getPassword())){
+            throw new BusinessException("旧密码错误");
+        }
         User user = new User();
         BeanUtils.copyProperties(userAlterPasswordDTO, user);
         userService.update(user);

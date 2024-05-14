@@ -105,7 +105,7 @@ create table borrow
 ) comment '借用';
 
 -- 维修表
-create table maintain
+create table maintainpush
 (
 	id           	bigint auto_increment comment '维修记录id' primary key,
 	teacher_id	 	bigint not null comment '教师id',

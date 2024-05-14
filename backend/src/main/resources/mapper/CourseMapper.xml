@@ -5,22 +5,22 @@
 <mapper namespace="com.backend.service.mapper.CourseMapper">
 
     <resultMap id="BaseResultMap" type="com.backend.model.entity.Course">
-            <id property="id" column="id" jdbcType="BIGINT"/>
-            <result property="teacherId" column="teacher_id" jdbcType="BIGINT"/>
-            <result property="labId" column="lab_id" jdbcType="BIGINT"/>
-            <result property="type" column="type" jdbcType="INTEGER"/>
-            <result property="name" column="name" jdbcType="VARCHAR"/>
-            <result property="semester" column="semester" jdbcType="VARCHAR"/>
-            <result property="startingWeek" column="starting_week" jdbcType="VARCHAR"/>
-            <result property="endingWeek" column="ending_week" jdbcType="VARCHAR"/>
-            <result property="session" column="session" jdbcType="VARCHAR"/>
-            <result property="studentNum" column="student_num" jdbcType="INTEGER"/>
-            <result property="major" column="major" jdbcType="VARCHAR"/>
-            <result property="clazz" column="clazz" jdbcType="VARCHAR"/>
-            <result property="status" column="status" jdbcType="INTEGER"/>
-            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
-            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
-            <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="teacherId" column="teacher_id" jdbcType="BIGINT"/>
+        <result property="labId" column="lab_id" jdbcType="BIGINT"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="semester" column="semester" jdbcType="VARCHAR"/>
+        <result property="startingWeek" column="starting_week" jdbcType="VARCHAR"/>
+        <result property="endingWeek" column="ending_week" jdbcType="VARCHAR"/>
+        <result property="session" column="session" jdbcType="VARCHAR"/>
+        <result property="studentNum" column="student_num" jdbcType="INTEGER"/>
+        <result property="major" column="major" jdbcType="VARCHAR"/>
+        <result property="clazz" column="clazz" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="isDelete" column="is_delete" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -31,13 +31,13 @@
         create_time,update_time,is_delete
     </sql>
 
-<!--    mapper xml内的sql语句最好用<![CDATA[ ]]>包裹以避免出现XML的特殊字符而造成编译错误-->
+    <!--    mapper xml内的sql语句最好用<![CDATA[ ]]>包裹以避免出现XML的特殊字符而造成编译错误-->
     <select id="getByWeek" resultType="com.backend.model.entity.Course">
         <![CDATA[
         SELECT *
         FROM course
         WHERE CAST(starting_week AS SIGNED) <= CAST(#{week} AS SIGNED)
-        AND CAST(ending_week AS SIGNED) >= CAST(#{week} AS SIGNED);
+          AND CAST(ending_week AS SIGNED) >= CAST(#{week} AS SIGNED);
         ]]>
     </select>
     <select id="getConflict" resultType="com.backend.model.entity.Course">
@@ -49,6 +49,28 @@
           AND CAST(starting_week AS SIGNED) <= CAST(#{week} AS SIGNED)
           AND CAST(ending_week AS SIGNED) >= CAST(#{week} AS SIGNED)
           AND session = #{session};
+        ]]>
+    </select>
+    <select id="getCourseLabSession" resultType="com.backend.model.vo.CourseLabSessionVO">
+        <![CDATA[
+        select course.id   as id,
+               teacher_id,
+               course.name as name,
+               student_num,
+               major,
+               clazz,
+               lab_id,
+               lab_admin_id,
+               lab.type    as type,
+               lab.name    as lab_name,
+               number,
+               equipment_num,
+               session
+        from course
+                 join lab on course.lab_id = lab.id
+        where course.semester = #{semester}
+          and CAST(course.starting_week AS SIGNED) <= CAST(#{week} AS SIGNED)
+          and CAST(course.ending_week AS SIGNED) >= CAST(#{week} AS SIGNED);
         ]]>
     </select>
 </mapper>

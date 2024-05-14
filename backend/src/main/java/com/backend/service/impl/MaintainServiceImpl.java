@@ -61,10 +61,6 @@ public class MaintainServiceImpl extends ServiceImpl<MaintainMapper, Maintain>
 
     @Override
     public void update(Maintain maintain) {
-        User user = userMapper.selectById(maintain.getTeacherId());
-        if (user.getRole() != 2) {
-            throw new BusinessException("教师id错误");
-        }
 
         List<Maintain> maintains = maintainMapper.getSame(maintain.getTeacherId(), maintain.getLabId(), new Date());
         if (!maintains.isEmpty()) {

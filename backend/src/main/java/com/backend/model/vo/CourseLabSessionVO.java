@@ -1,32 +1,52 @@
-package com.backend.model.entity;
+package com.backend.model.vo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 
-/**
- * 实验室
- * @TableName lab
- */
-@TableName(value ="lab")
 @Data
-public class Lab implements Serializable {
+public class CourseLabSessionVO {
     /**
-     * 实验室id
+     * 课程id
      */
     @TableId(type = IdType.AUTO)
     private Long id;
+
+    /**
+     * 教师id
+     */
+    @NotNull(message = "教师id不能为空")
+    private Long teacherId;
+
+    /**
+     * 课程名称
+     */
+    @NotBlank(message = "课程名称不能为空")
+    private String name;
+
+    /**
+     * 学生人数
+     */
+    @NotNull(message = "学生人数不能为空")
+    private Integer studentNum;
+
+    /**
+     * 学生专业
+     */
+    private String major;
+
+    /**
+     * 学生班级
+     */
+    private String clazz;
+
+    /**
+     * 实验室id，默认只是占位，已通过后（status=1）分配
+     */
+    @NotNull(message = "实验室id不能为空")
+    private Long labId;
 
     /**
      * 实验员id
@@ -45,7 +65,7 @@ public class Lab implements Serializable {
     /**
      * 实验室名称
      */
-    private String name;
+    private String labName;
 
     /**
      * 实验室编号，约定用3位数字表示
@@ -61,23 +81,9 @@ public class Lab implements Serializable {
     private Integer equipmentNum;
 
     /**
-     * 创建时间
+     * 节次，格式为num1-num2（表示节次为num1-num2节）
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date updateTime;
-
-    /**
-     * 是否删除
-     */
-//    @TableLogic
-    private Integer isDelete;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
+    @NotEmpty(message = "节次不能为空")
+    @Pattern(regexp = "\\d+-\\d+",message = "节次格式错误")
+    private String session;
 }

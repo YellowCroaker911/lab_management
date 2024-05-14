@@ -21,4 +21,18 @@
         name,location,equipment_num,
         create_time,update_time,is_delete
     </sql>
+    <select id="getAvailableLabSession" resultType="com.backend.model.vo.AvailableLabSessionVO">
+        <![CDATA[
+        select lab.id as id, lab_admin_id, type, name, number, equipment_num, session
+        from lab,
+             session
+        where lab.type = #{type}
+          and lab.equipment_num > #{student_num}
+          and session.session not in (select session
+                                      from course
+                                      where course.semester = #{semester}
+                                        and course.starting_week <= #{endingWeek}
+                                        and course.ending_week >= #{startingWeek});
+        ]]>
+    </select>
 </mapper>

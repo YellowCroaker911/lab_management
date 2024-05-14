@@ -68,6 +68,13 @@ public class SemesterServiceImpl extends ServiceImpl<SemesterMapper, Semester>
     }
 
     @Override
+    public Semester getCurrent() {
+        QueryWrapper<Semester> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status",1);
+        return semesterMapper.selectOne(queryWrapper);
+    }
+
+    @Override
     public List<Semester> getAll() {
         return semesterMapper.selectList(null);
     }

@@ -16,5 +16,6 @@ public interface SemesterService extends IService<Semester> {
     void delete(Long id);
     void update(Semester semester);
     Semester get(Long id);
+    Semester getCurrent();
     List<Semester> getAll();
 }

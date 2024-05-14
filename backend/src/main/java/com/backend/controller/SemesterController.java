@@ -52,6 +52,13 @@ public class SemesterController {
         return ResponseData.success(semester, null);
     }
 
+    // 获取当前学期
+    @GetMapping("/getCurrentSemester")
+    public ResponseData<Object> getCurrentSemester() {
+        Semester semester = semesterService.getCurrent();
+        return ResponseData.success(semester, null);
+    }
+
     // 获取所有学期
     @GetMapping("/getAllSemesters")
     public ResponseData<Object> getAllSemesters() {

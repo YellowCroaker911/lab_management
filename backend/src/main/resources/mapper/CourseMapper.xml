@@ -70,7 +70,8 @@
                  join lab on course.lab_id = lab.id
         where course.semester = #{semester}
           and CAST(course.starting_week AS SIGNED) <= CAST(#{week} AS SIGNED)
-          and CAST(course.ending_week AS SIGNED) >= CAST(#{week} AS SIGNED);
+          and CAST(course.ending_week AS SIGNED) >= CAST(#{week} AS SIGNED)
+          and course.status = 1;
         ]]>
     </select>
 </mapper>

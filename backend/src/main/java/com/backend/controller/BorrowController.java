@@ -49,7 +49,7 @@ public class BorrowController {
 
     // 审核借用记录
     @PostMapping("/admitBorrow")
-    public ResponseData<Object> admitBorrow(@RequestParam @Validated BorrowAdmitDTO borrowAdmitDTO) {
+    public ResponseData<Object> admitBorrow(@RequestBody@Validated BorrowAdmitDTO borrowAdmitDTO) {
         Borrow borrow = new Borrow();
         BeanUtils.copyProperties(borrowAdmitDTO, borrow);
         borrowService.update(borrow);
@@ -58,7 +58,7 @@ public class BorrowController {
 
     // 确认使用完毕
     @PostMapping("/completeBorrow")
-    public ResponseData<Object> completeBorrow(@RequestParam @Validated BorrowCompleteDTO borrowCompleteDTO) {
+    public ResponseData<Object> completeBorrow(@RequestBody @Validated BorrowCompleteDTO borrowCompleteDTO) {
         Borrow borrow = new Borrow();
         BeanUtils.copyProperties(borrowCompleteDTO, borrow);
         borrowService.update(borrow);

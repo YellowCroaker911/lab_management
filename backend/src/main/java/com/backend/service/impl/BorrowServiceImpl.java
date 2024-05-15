@@ -102,11 +102,6 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
 
     @Override
     public void update(Borrow borrow) {
-        User user = userMapper.selectById(borrow.getStudentId());
-
-        if (user.getRole() != 1) {
-            throw new BusinessException("学生id错误");
-        }
 
         if (borrow.getStatus()!=null && borrow.getStatus() == 1) {
             Lab lab = labMapper.selectById(borrow.getLabId());

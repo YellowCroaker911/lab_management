@@ -37,7 +37,7 @@ CREATE TABLE `borrow` (
   `reason` text COMMENT '借用原因',
   `semester` varchar(255) NOT NULL COMMENT '学期，格式为year1-year2-num（year1-year2为学年，num为1或2）',
   `week` varchar(255) NOT NULL COMMENT '周，1-20',
-  `session` varchar(255) NOT NULL COMMENT '节次，格式为num1-num2（表示节次为num1-num2节）',
+  `session` varchar(255) NOT NULL COMMENT '节次，格式为day num1-num2（表示星期day，节次为num1-num2节）',
   `status` int(11) NOT NULL DEFAULT '0' COMMENT '审核状态，0-未审核，1-通过，2-驳回，3-使用完毕',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -79,7 +79,7 @@ CREATE TABLE `course` (
   `semester` varchar(255) NOT NULL COMMENT '学期，格式为year1-year2-num（year1-year2为学年，num为1或2）',
   `starting_week` varchar(255) NOT NULL COMMENT '起始周',
   `ending_week` varchar(255) NOT NULL COMMENT '结束周',
-  `session` varchar(255) NOT NULL COMMENT '节次，格式为num1-num2（表示节次为num1-num2节）',
+  `session` varchar(255) NOT NULL COMMENT '节次，格式为day num1-num2（表示星期day，节次为num1-num2节）',
   `student_num` int(11) NOT NULL COMMENT '学生人数',
   `major` varchar(255) DEFAULT NULL COMMENT '学生专业',
   `clazz` varchar(255) DEFAULT NULL COMMENT '学生班级',
@@ -217,7 +217,7 @@ DROP TABLE IF EXISTS `session`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `session` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '节次id',
-  `session` varchar(255) NOT NULL COMMENT '节次，格式为num1-num2（表示节次为num1-num2节）',
+  `session` varchar(255) NOT NULL COMMENT '节次，格式为day num1-num2（表示星期day，节次为num1-num2节）',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `is_delete` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除',

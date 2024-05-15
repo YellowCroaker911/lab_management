@@ -108,7 +108,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
             throw new BusinessException("学生id错误");
         }
 
-        if (borrow.getStatus() == 1) {
+        if (borrow.getStatus()!=null && borrow.getStatus() == 1) {
             Lab lab = labMapper.selectById(borrow.getLabId());
             if (lab == null) {
                 throw new BusinessException("实验室id错误");

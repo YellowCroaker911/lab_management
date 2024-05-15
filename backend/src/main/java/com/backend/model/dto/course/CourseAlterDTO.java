@@ -47,10 +47,10 @@ public class CourseAlterDTO {
     @Pattern(regexp = "^(?:[1-9]|1[0-9]|20)$",message = "结束周格式错误")
     private String endingWeek;
     /**
-     * 节次，格式为num1-num2（表示节次为num1-num2节）
+     * 节次，格式为day num1-num2（表示星期day，节次为num1-num2节）
      */
     @NotEmpty(message = "节次不能为空")
-    @Pattern(regexp = "\\d+-\\d+",message = "节次格式错误")
+    @Pattern(regexp = "\\d+ \\d+-\\d+",message = "节次格式错误")
     private String session;
     /**
      * 学生人数

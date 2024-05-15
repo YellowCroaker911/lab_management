@@ -32,7 +32,9 @@
                                       from course
                                       where course.semester = #{semester}
                                         and course.starting_week <= #{endingWeek}
-                                        and course.ending_week >= #{startingWeek});
+                                        and course.ending_week >= #{startingWeek}
+                                        and course.status = 1
+                                      );
         ]]>
     </select>
 </mapper>

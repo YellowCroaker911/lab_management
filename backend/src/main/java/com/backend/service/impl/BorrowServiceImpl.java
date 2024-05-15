@@ -103,28 +103,43 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
     @Override
     public void update(Borrow borrow) {
 
-        if (borrow.getStatus()!=null && borrow.getStatus() == 1) {
-            Lab lab = labMapper.selectById(borrow.getLabId());
-            if (lab == null) {
-                throw new BusinessException("实验室id错误");
+        if (borrow.getLabId() != null) {
+            User user = userMapper.selectById(borrow.getStudentId());
+            if (user.getRole() != 1) {
+                throw new BusinessException("学生id错误");
             }
         }
 
-        QueryWrapper<Semester> qw1 = new QueryWrapper<>();
-        qw1.eq("semester", borrow.getSemester());
-        Semester semester = semesterMapper.selectOne(qw1);
-        if (semester == null) {
-            throw new BusinessException("学期不存在");
-        }
-        if (parseInt(semester.getWeek()) < parseInt(borrow.getWeek())) {
-            throw new BusinessException("周次超过学期最大周数");
+        if (borrow.getLabId() != null) {
+            if (borrow.getStatus() != null && borrow.getStatus() == 1) {
+                Lab lab = labMapper.selectById(borrow.getLabId());
+                if (lab == null) {
+                    throw new BusinessException("实验室id错误");
+                }
+            }
         }
 
-        QueryWrapper<Session> qw2 = new QueryWrapper<>();
-        qw2.eq("session", borrow.getSession());
-        Session session = sessionMapper.selectOne(qw2);
-        if (session == null) {
-            throw new BusinessException("节次不存在");
+        if (borrow.getSemester() != null) {
+            QueryWrapper<Semester> qw1 = new QueryWrapper<>();
+            qw1.eq("semester", borrow.getSemester());
+            Semester semester = semesterMapper.selectOne(qw1);
+            if (semester == null) {
+                throw new BusinessException("学期不存在");
+            }
+            if (borrow.getWeek() != null) {
+                if (parseInt(semester.getWeek()) < parseInt(borrow.getWeek())) {
+                    throw new BusinessException("周次超过学期最大周数");
+                }
+            }
+        }
+
+        if (borrow.getSession() != null) {
+            QueryWrapper<Session> qw2 = new QueryWrapper<>();
+            qw2.eq("session", borrow.getSession());
+            Session session = sessionMapper.selectOne(qw2);
+            if (session == null) {
+                throw new BusinessException("节次不存在");
+            }
         }
 
         QueryWrapper<Borrow> qw3 = new QueryWrapper<>();
@@ -136,6 +151,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
         if (!borrows2.isEmpty()) {
             throw new BusinessException("实验室此时不可用，已有学生借用");
         }
+
 
         List<Course> courses = courseMapper.getConflict(borrow.getLabId(),
                 borrow.getSemester(), borrow.getWeek(), borrow.getSession());

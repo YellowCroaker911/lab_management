@@ -62,9 +62,18 @@ public class MaintainServiceImpl extends ServiceImpl<MaintainMapper, Maintain>
     @Override
     public void update(Maintain maintain) {
 
-        List<Maintain> maintains = maintainMapper.getSame(maintain.getTeacherId(), maintain.getLabId(), new Date());
-        if (!maintains.isEmpty()) {
-            throw new BusinessException("当天维修记录已存在");
+        if (maintain.getTeacherId() != null) {
+            User user = userMapper.selectById(maintain.getTeacherId());
+            if (user.getRole() != 2) {
+                throw new BusinessException("教师id错误");
+            }
+        }
+
+        if (maintain.getTeacherId() != null && maintain.getLabId() != null) {
+            List<Maintain> maintains = maintainMapper.getSame(maintain.getTeacherId(), maintain.getLabId(), new Date());
+            if (!maintains.isEmpty()) {
+                throw new BusinessException("当天维修记录已存在");
+            }
         }
 
         Maintain qMaintain = maintainMapper.selectById(maintain.getId());
@@ -73,12 +82,12 @@ public class MaintainServiceImpl extends ServiceImpl<MaintainMapper, Maintain>
         }
 
         if (qMaintain.getStatus() == 1) {
-            if (maintain.getStatus()==null || maintain.getStatus() != 2) {
+            if (maintain.getStatus() == null || maintain.getStatus() != 2) {
                 throw new BusinessException("已正在维修，无法修改");
             }
         }
         if (qMaintain.getStatus() == 2) {
-            if (maintain.getStatus()==null || maintain.getStatus() != 2) {
+            if (maintain.getStatus() == null || maintain.getStatus() != 2) {
                 throw new BusinessException("已维修完毕，无法修改");
             }
         }

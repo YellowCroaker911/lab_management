@@ -82,39 +82,50 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
 
     @Override
     public void update(Course course) {
-        User user = userMapper.selectById(course.getTeacherId());
-        if (user.getRole() != 2) {
-            throw new BusinessException("教师id错误");
-        }
 
-        if (course.getStatus() != null && course.getStatus() == 1) {
-            Lab lab = labMapper.selectById(course.getLabId());
-            if (lab == null) {
-                throw new BusinessException("实验室id错误");
-            }
-            if (!lab.getType().equals(course.getType())) {
-                throw new BusinessException("实验室类型与课程需求类型不匹配");
-            }
-            if (lab.getEquipmentNum() < course.getStudentNum()) {
-                throw new BusinessException("实验室设备数少于课程学生人数");
+        if (course.getTeacherId() != null) {
+            User user = userMapper.selectById(course.getTeacherId());
+            if (user.getRole() != 2) {
+                throw new BusinessException("教师id错误");
             }
         }
 
-        QueryWrapper<Semester> qw1 = new QueryWrapper<>();
-        qw1.eq("semester", course.getSemester());
-        Semester semester = semesterMapper.selectOne(qw1);
-        if (semester == null) {
-            throw new BusinessException("学期不存在");
-        }
-        if (parseInt(semester.getWeek()) < parseInt(course.getEndingWeek())) {
-            throw new BusinessException("结束周超过学期最大周数");
+        if (course.getLabId() != null) {
+            if (course.getStatus() != null && course.getStatus() == 1) {
+                Lab lab = labMapper.selectById(course.getLabId());
+                if (lab == null) {
+                    throw new BusinessException("实验室id错误");
+                }
+                if (!lab.getType().equals(course.getType())) {
+                    throw new BusinessException("实验室类型与课程需求类型不匹配");
+                }
+                if (lab.getEquipmentNum() < course.getStudentNum()) {
+                    throw new BusinessException("实验室设备数少于课程学生人数");
+                }
+            }
         }
 
-        QueryWrapper<Session> qw2 = new QueryWrapper<>();
-        qw2.eq("session", course.getSession());
-        Session session = sessionMapper.selectOne(qw2);
-        if (session == null) {
-            throw new BusinessException("节次不存在");
+        if (course.getSemester() != null) {
+            QueryWrapper<Semester> qw1 = new QueryWrapper<>();
+            qw1.eq("semester", course.getSemester());
+            Semester semester = semesterMapper.selectOne(qw1);
+            if (semester == null) {
+                throw new BusinessException("学期不存在");
+            }
+            if (course.getEndingWeek() != null) {
+                if (parseInt(semester.getWeek()) < parseInt(course.getEndingWeek())) {
+                    throw new BusinessException("结束周超过学期最大周数");
+                }
+            }
+        }
+
+        if (course.getSession() != null) {
+            QueryWrapper<Session> qw2 = new QueryWrapper<>();
+            qw2.eq("session", course.getSession());
+            Session session = sessionMapper.selectOne(qw2);
+            if (session == null) {
+                throw new BusinessException("节次不存在");
+            }
         }
 
         Course qCourse = courseMapper.selectById(course.getId());

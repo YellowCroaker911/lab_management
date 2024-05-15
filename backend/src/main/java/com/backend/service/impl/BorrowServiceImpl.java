@@ -154,7 +154,7 @@ public class BorrowServiceImpl extends ServiceImpl<BorrowMapper, Borrow>
         }
 
         if (qBorrow.getStatus() == 1) {
-            if (borrow.getStatus() != 3) {
+            if (borrow.getStatus() == null || borrow.getStatus() != 3) {
                 throw new BusinessException("已审核，无法修改");
             }
         }

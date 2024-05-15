@@ -73,12 +73,12 @@ public class MaintainServiceImpl extends ServiceImpl<MaintainMapper, Maintain>
         }
 
         if (qMaintain.getStatus() == 1) {
-            if (maintain.getStatus() != 2) {
+            if (maintain.getStatus()==null || maintain.getStatus() != 2) {
                 throw new BusinessException("已正在维修，无法修改");
             }
         }
         if (qMaintain.getStatus() == 2) {
-            if (maintain.getStatus() != 2) {
+            if (maintain.getStatus()==null || maintain.getStatus() != 2) {
                 throw new BusinessException("已维修完毕，无法修改");
             }
         }

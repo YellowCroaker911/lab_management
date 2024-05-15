@@ -87,7 +87,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             throw new BusinessException("教师id错误");
         }
 
-        if (course.getStatus() == 1) {
+        if (course.getStatus() != null && course.getStatus() == 1) {
             Lab lab = labMapper.selectById(course.getLabId());
             if (lab == null) {
                 throw new BusinessException("实验室id错误");
@@ -122,7 +122,7 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
             throw new BusinessException("索引不存在");
         }
 
-        if(qCourse.getStatus()==1){
+        if (qCourse.getStatus() == 1) {
             throw new BusinessException("已排课，无法修改");
         }
 

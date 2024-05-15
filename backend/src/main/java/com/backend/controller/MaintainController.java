@@ -33,7 +33,7 @@ public class MaintainController {
 
     // 移除维修记录
     @PostMapping("/removeMaintain")
-    public ResponseData<Object> removeMaintain(@RequestParam @NotNull(message = "维修记录id不能为空") Long id) {
+    public ResponseData<Object> removeMaintain(@RequestBody @NotNull(message = "维修记录id不能为空") Long id) {
         maintainService.delete(id);
         return ResponseData.success(null, null);
     }
@@ -49,7 +49,7 @@ public class MaintainController {
 
     // 开始维修
     @PostMapping("/startMaintain")
-    public ResponseData<Object> startMaintain(@RequestParam @Validated MaintainStartDTO maintainStartDTO) {
+    public ResponseData<Object> startMaintain(@RequestBody @Validated MaintainStartDTO maintainStartDTO) {
         Maintain maintain = new Maintain();
         BeanUtils.copyProperties(maintainStartDTO, maintain);
         maintainService.update(maintain);
@@ -58,7 +58,7 @@ public class MaintainController {
 
     // 完成维修
     @PostMapping("/completeMaintain")
-    public ResponseData<Object> completeMaintain(@RequestParam @Validated MaintainCompleteDTO maintainCompleteDTO) {
+    public ResponseData<Object> completeMaintain(@RequestBody @Validated MaintainCompleteDTO maintainCompleteDTO) {
         Maintain maintain = new Maintain();
         BeanUtils.copyProperties(maintainCompleteDTO, maintain);
         maintainService.update(maintain);
@@ -67,7 +67,7 @@ public class MaintainController {
 
     // 根据ID获取维修记录
     @GetMapping("/getMaintainById")
-    public ResponseData<Object> getMaintainById(@RequestParam @NotNull(message = "维修记录id不能为空") Long id) {
+    public ResponseData<Object> getMaintainById(@RequestBody @NotNull(message = "维修记录id不能为空") Long id) {
         Maintain maintain = maintainService.get(id);
         return ResponseData.success(maintain, null);
     }
@@ -81,14 +81,14 @@ public class MaintainController {
 
     // 根据教师id获取维修记录
     @GetMapping("/getMaintainsByTeacherId")
-    public ResponseData<Object> getMaintainsByTeacherId(@RequestParam @NotNull(message = "教师id不能为空") Long teacherId){
+    public ResponseData<Object> getMaintainsByTeacherId(@RequestParam @NotNull(message = "教师id不能为空") Long teacherId) {
         List<Maintain> maintains = maintainService.getByTeacherId(teacherId);
         return ResponseData.success(maintains, null);
     }
 
     // 根据实验室id获取维修记录
     @GetMapping("/getMaintainsByLabId")
-    public ResponseData<Object> getMaintainsByLabId(@RequestParam @NotNull(message = "实验室id不能为空") Long labId){
+    public ResponseData<Object> getMaintainsByLabId(@RequestParam @NotNull(message = "实验室id不能为空") Long labId) {
         List<Maintain> maintains = maintainService.getByLabId(labId);
         return ResponseData.success(maintains, null);
     }
@@ -96,16 +96,16 @@ public class MaintainController {
     // 根据维修状态获取维修记录
     @GetMapping("/getMaintainsByStatus")
     public ResponseData<Object> getMaintainsByStatus(@RequestParam @NotNull(message = "维修状态不能为空")
-                                                   @Min(value = 0, message = "维修状态必须在{0,1,2}内")
-                                                   @Max(value = 2, message = "维修状态必须在{0,1,2}内")
-                                                   Integer status){
+                                                     @Min(value = 0, message = "维修状态必须在{0,1,2}内")
+                                                     @Max(value = 2, message = "维修状态必须在{0,1,2}内")
+                                                     Integer status) {
         List<Maintain> maintains = maintainService.getByStatus(status);
         return ResponseData.success(maintains, null);
     }
 
     // 根据实验员id获取维修记录
     @GetMapping("/getMaintainsByLabAdminId")
-    public ResponseData<Object> getMaintainsByLabAdminId(@RequestParam @NotNull(message = "实验员id不能为空") Long labAdminId){
+    public ResponseData<Object> getMaintainsByLabAdminId(@RequestParam @NotNull(message = "实验员id不能为空") Long labAdminId) {
         List<Maintain> maintains = maintainService.getByLabAdminId(labAdminId);
         return ResponseData.success(maintains, null);
     }

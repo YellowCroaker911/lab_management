@@ -1,5 +1,7 @@
 package com.backend.service.service;
 
+import com.backend.model.dto.lab.LabAvaliableGetDTO;
+import com.backend.model.entity.Course;
 import com.backend.model.entity.Lab;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -21,4 +23,5 @@ public interface LabService extends IService<Lab> {
     List<Lab> getByNamePrefix(String namePrefix);
     List<Lab> getByNumberPrefix(String numberPrefix);
     List<Lab> getByLeastEquipmentNum(Integer equipmentNum);
+    List<Lab> getAvailable(LabAvaliableGetDTO labAvaliableGetDTO);
 }

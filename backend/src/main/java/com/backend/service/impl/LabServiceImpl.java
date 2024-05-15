@@ -1,5 +1,7 @@
 package com.backend.service.impl;
 
+import com.backend.model.dto.lab.LabAvaliableGetDTO;
+import com.backend.model.entity.Course;
 import com.backend.model.entity.User;
 import com.backend.service.mapper.UserMapper;
 import com.backend.utils.exception.BusinessException;
@@ -106,6 +108,13 @@ public class LabServiceImpl extends ServiceImpl<LabMapper, Lab>
         QueryWrapper<Lab> queryWrapper = new QueryWrapper<>();
         queryWrapper.ge("equipment_num", equipmentNum);
         return labMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public List<Lab> getAvailable(LabAvaliableGetDTO labAvaliableGetDTO) {
+        return labMapper.getAvailable(labAvaliableGetDTO.getType(), labAvaliableGetDTO.getSemester(),
+                labAvaliableGetDTO.getStartingWeek(), labAvaliableGetDTO.getEndingWeek(),
+                labAvaliableGetDTO.getSession(), labAvaliableGetDTO.getStudentNum());
     }
 }
 

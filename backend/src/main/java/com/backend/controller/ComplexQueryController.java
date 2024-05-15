@@ -1,8 +1,6 @@
 package com.backend.controller;
 
-import com.backend.model.dto.AvailableLabSessionDTO;
 import com.backend.model.dto.CourseLabSessionDTO;
-import com.backend.model.vo.AvailableLabSessionVO;
 import com.backend.model.vo.CourseLabSessionVO;
 import com.backend.service.service.ComplexQueryService;
 import com.backend.utils.response.ResponseData;
@@ -22,13 +20,6 @@ public class ComplexQueryController {
 
     @Autowired
     ComplexQueryService complexQueryService;
-
-    // 获取可用实验室及其节次
-    @PostMapping("/getAvailableLabSession")
-    public ResponseData<Object> getAvailableLabSession(@RequestBody @Validated AvailableLabSessionDTO availableLabSessionDTO) {
-        List<AvailableLabSessionVO> availableLabSessionVOS = complexQueryService.getAvailableLabSession(availableLabSessionDTO);
-        return ResponseData.success(availableLabSessionVOS, null);
-    }
 
     // 获取某一周课表
     @PostMapping("/getCourseLabSession")

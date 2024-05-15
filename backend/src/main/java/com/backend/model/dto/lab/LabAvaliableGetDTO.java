@@ -1,13 +1,11 @@
-package com.backend.model.dto;
+package com.backend.model.dto.lab;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 
 @Data
-public class AvailableLabSessionDTO {
+public class LabAvaliableGetDTO {
     /**
      * 需求实验室类别，0-软件，1-硬件，2-网络
      */
@@ -38,8 +36,16 @@ public class AvailableLabSessionDTO {
     private String endingWeek;
 
     /**
+     * 节次，格式为day num1-num2（表示星期day，节次为num1-num2节）
+     */
+    @NotEmpty(message = "节次不能为空")
+    @Pattern(regexp = "\\d+ \\d+-\\d+",message = "节次格式错误")
+    private String session;
+
+    /**
      * 学生人数
      */
     @NotNull(message = "学生人数不能为空")
     private Integer studentNum;
+
 }

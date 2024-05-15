@@ -1,7 +1,6 @@
 package com.backend.service.mapper;
 
 import com.backend.model.entity.Lab;
-import com.backend.model.vo.AvailableLabSessionVO;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -16,9 +15,10 @@ import java.util.List;
  */
 @Mapper
 public interface LabMapper extends BaseMapper<Lab> {
-    List<AvailableLabSessionVO> getAvailableLabSession(@Param("type") Integer type, @Param("semester") String semester,
-                                                       @Param("startingWeek") String startingWeek, @Param("endingWeek") String endingWeek,
-                                                       @Param("student_num") Integer studentNum);
+    List<Lab> getAvailable(@Param("type") Integer type, @Param("semester") String semester,
+                           @Param("startingWeek") String startingWeek, @Param("endingWeek") String endingWeek,
+                           @Param("session") String session,
+                           @Param("student_num") Integer studentNum);
 }
 
 

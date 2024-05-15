@@ -1,6 +1,7 @@
 package com.backend.controller;
 
 import com.backend.model.dto.lab.LabAlterDTO;
+import com.backend.model.dto.lab.LabAvaliableGetDTO;
 import com.backend.model.dto.lab.LabImportDTO;
 import com.backend.model.entity.Lab;
 import com.backend.service.service.LabService;
@@ -98,4 +99,12 @@ public class LabController {
         List<Lab> labs = labService.getByLeastEquipmentNum(equipmentNum);
         return ResponseData.success(labs, null);
     }
+
+    // 获取可用实验室
+    @PostMapping("/getAvailableLabs")
+    public ResponseData<Object> getAvailableLabs(@RequestBody @Validated LabAvaliableGetDTO labAvaliableGetDTO) {
+        List<Lab> labs = labService.getAvailable(labAvaliableGetDTO);
+        return ResponseData.success(labs, null);
+    }
+
 }

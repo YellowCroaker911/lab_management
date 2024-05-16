@@ -96,11 +96,15 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course>
                 if (lab == null) {
                     throw new BusinessException("实验室id错误");
                 }
-                if (!lab.getType().equals(course.getType())) {
-                    throw new BusinessException("实验室类型与课程需求类型不匹配");
+                if (course.getType() != null) {
+                    if (!lab.getType().equals(course.getType())) {
+                        throw new BusinessException("实验室类型与课程需求类型不匹配");
+                    }
                 }
-                if (lab.getEquipmentNum() < course.getStudentNum()) {
-                    throw new BusinessException("实验室设备数少于课程学生人数");
+                if (course.getStudentNum() != null) {
+                    if (lab.getEquipmentNum() < course.getStudentNum()) {
+                        throw new BusinessException("实验室设备数少于课程学生人数");
+                    }
                 }
             }
         }

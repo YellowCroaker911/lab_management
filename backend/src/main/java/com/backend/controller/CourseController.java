@@ -48,7 +48,7 @@ public class CourseController {
 
     // 排课课程
     @PostMapping("/admitCourse")
-    public ResponseData<Object> admitCourse(@RequestParam @Validated CourseAdmitDTO courseAdmitDTO) {
+    public ResponseData<Object> admitCourse(@RequestBody @Validated CourseAdmitDTO courseAdmitDTO) {
         Course course = new Course();
         BeanUtils.copyProperties(courseAdmitDTO, course);
         courseService.update(course);
